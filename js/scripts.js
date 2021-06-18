@@ -20,15 +20,16 @@ pizzaParlor.prototype.findPizza = function(id) {
   return false;
 };
 
-function Pizza(fullname,topings,size){
+function Pizza(fullname,phoneno,topings,sizes){
 this.fullname = fullname;
+this.phoneno = phoneno;
 this.topings = topings;
-this.sizes = sizes
+this.sizes = sizes;
 }
 
 function Sizes(){
-   this.sizes = {};
-   this.currentId = 0 
+  this.sizes = {};
+  this.currentId = 0 
 }
 Sizes.prototype.addSize = function(size) {
   size.id = this.assignId();
@@ -53,6 +54,29 @@ function Size(sizeType,cost){
 }
 
 function Topings(){
-    this.topings = {};
-    this.currentId = 0;
+  this.topings = {};
+  this.currentId = 0;
 }
+
+Topings.prototype.addToping = function(toping) {
+  toping.id = this.assignId();
+  this.topings[toping.id] = toping;
+};
+
+Topings.prototype.assignId = function() {
+  this.currentId += 1;
+  return this.currentId;
+};
+
+Topings.prototype.findToping = function(id) {
+  if (this.topings[id] != undefined) {
+    return this.topings[id];
+  }
+  return false;
+};
+
+function Toping(TopingType,cost){
+  this.TopingType = TopingType;
+  this.cost = cost;
+}
+
