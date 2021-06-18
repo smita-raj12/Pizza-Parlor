@@ -96,8 +96,10 @@ function Toping(topings,topingCost){
   this.topingCost = topingCost
 }
 
+let TotalCost = 0
+
 let topings = new Topings();
-let newToping = new Toping("chease", 2.00);
+let newToping = new Toping("cheese", 2.00);
 topings.addToping(newToping);
 newToping = new Toping("pinaple", 4.00);
 topings.addToping(newToping);
@@ -129,6 +131,7 @@ function displaySizeDetails(sizeToDisplay) {
   });
   pizzaSize.html(htmlForSize);
 }
+
 function costSize(inputedSizeType){
   console.log("inputedSize",inputedSizeType);
   for (let i=1; i<4; i++) {
@@ -148,6 +151,19 @@ function displayTopingDetails(topingToDisplay) {
     htmlForToping += "<li id=" + toping.id + ">" + toping.topings + " " +   "</li>";
   });
   pizzaToping.html(htmlForToping);
+}
+
+
+function costToping(inputedTopingType){
+  console.log("inputedTopingType",inputedTopingType);
+  for (let i=1; i<4; i++) {
+    console.log("topings.toping[i].topingTyp",topings.topings[i])
+    if(topings.topings[i].topings === inputedTopingType){
+      console.log("pizzaCostpertoping222",topings.topings[i].topingCost)
+    return  pizzaCostpertoping = topings.topings[i].topingCost
+    //console.log("pizzaCostperSize",pizzaCostperSize)
+    }
+  }
 }
 
 /*function showPizza(pizzaId) {
@@ -170,18 +186,26 @@ $(document).ready(function() {
   $("form#pizaform").submit(function(event) {
   //attachPizzaListeners();
   event.preventDefault();
+  let pizzaCostperTopping = 0
   const inputtedFullName = $("input#name").val();
   const inputedPnoneno = $("input#phone").val();
   const inputedSizes = $("input[name='type']:checked").val();
-  const inputedCheese = $("#cheese").val();
-  const inputedPepperoni = $("#pepperoni").val();
-  const inputedArtichoke= $("#artichoke").val();
-  const inputedPainaple = $("#painaple").val();
+  $("input[type=checkbox]:checked").each ( function() {
+    const inputedToping = $(this).val();
+    console.log("inputedToping",inputedToping)
+    pizzaCostperTopping += costToping(inputedToping.toLowerCase())
+    console.log("pizzaCostperTopping 1111",pizzaCostperTopping)
+  });
   console.log("inputedSizes",inputedSizes)
   //let FindSize = sizes.findSize(inputedSizes)
   let pizzaCostperSize=costSize(inputedSizes)
+  //console.log("inputedToping",inputedToping)
+  
+  //let pizzaCostperTopping=costToping(inputedToping)
   console.log("pizzaCostperSize",pizzaCostperSize)
-  let TotalCost = pizzaCostperSize + pizzaCostperTopping
+  console.log("pizzaCostperTopping",pizzaCostperTopping)
+  TotalCost = pizzaCostperSize + pizzaCostperTopping
+  console.log("TotalCost",TotalCost)
   //console.log("FindSize",FindSize)
   //console.log("sizes.test",sizes.sizes[1].sizeType[inputedSizes])
     //let newSizes = new Sizes();
