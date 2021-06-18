@@ -27,15 +27,6 @@ this.topings = topings;
 this.sizes = sizes;
 }
 
-function displayPizzaDetails(pizzaToDisplay) {
-  let pizza = $("ul#Pizzas");
-  let htmlForPizza = "";
-  Object.keys(pizzaToDisplay.pizzas).forEach(function(key) {
-    const pizza = pizzaToDisplay.findToping(key);
-    htmlForPizza += "<li id=" + pizza.id + ">" + pizza.fullname +  "</li>";
-  });
-  pizza.html(htmlForPizza);
-}
 
 function Sizes(){
   this.sizes = {};
@@ -64,15 +55,6 @@ function Size(sizeType,cost){
   this.cost = cost;
 }
 
-function displaySizeDetails(sizeToDisplay) {
-  let pizzaSize = $("ul#sizes");
-  let htmlForSize = "";
-  Object.keys(sizeToDisplay.sizes).forEach(function(key) {
-    const size = sizeToDisplay.findSize(key);
-    htmlForSize += "<li id=" + size.id + ">" + size.sizeType + " " + size.cost +  "</li>";
-  });
-  pizzaSize.html(htmlForSize);
-}
 
 function Topings(){
   this.topings = {};
@@ -101,6 +83,31 @@ function Toping(TopingType,cost){
   this.cost = cost;
 }
 
+//User interface logic
+
+let pizzaparlor = new pizzaParlor();
+
+function displayPizzaDetails(pizzaToDisplay) {
+  let pizza = $("ul#Pizzas");
+  let htmlForPizza = "";
+  Object.keys(pizzaToDisplay.pizzas).forEach(function(key) {
+    const pizza = pizzaToDisplay.findPizza(key);
+    htmlForPizza += "<li id=" + pizza.id + ">" + pizza.fullname +  "</li>";
+  });
+  pizza.html(htmlForPizza);
+}
+
+function displaySizeDetails(sizeToDisplay) {
+  let pizzaSize = $("ul#sizes");
+  let htmlForSize = "";
+  Object.keys(sizeToDisplay.sizes).forEach(function(key) {
+    const size = sizeToDisplay.findSize(key);
+    htmlForSize += "<li id=" + size.id + ">" + size.sizeType + " " + size.cost +  "</li>";
+  });
+  pizzaSize.html(htmlForSize);
+}
+
+
 function displayTopingDetails(topingToDisplay) {
   let pizzaToping = $("ul#Topings");
   let htmlForToping = "";
@@ -112,7 +119,7 @@ function displayTopingDetails(topingToDisplay) {
 }
 
 function showPizza(pizzaId) {
-  const pizza = pizzaParlor.findPizza(pizzaId);
+  const pizza = pizzaparlor.findPizza(pizzaId);
   $("#show-pizza").show();
   $(".fname").html(pizza.fullName);
   $(".phonenum").html(pizza.phoneno);
@@ -122,7 +129,31 @@ function showPizza(pizzaId) {
 
 function attachPizzaListeners() {
   $("ul#Pizzas").on("click", "li", function() {
-    showContact(this.id);
+    showPizza(this.id);
   });
-  displayPizzaDetails(pizzaParlor)
+  displayPizzaDetails(pizzaparlor)
 }
+
+$(document).ready(function() {
+  $("form#pizaform").submit(function(event) {
+    attachPizzaListeners();
+    event.preventDefault();
+    const inputtedFullName = $("input#name").val();
+    const inputedPnoneno = $("input#phone").val();
+    const inputedSizes = $("#size").val();
+    const inputedCheese = $("#cheese").val();
+    const inputedPepperoni = $("#pepperoni").val();
+    const inputedArtichoke= $("#artichoke").val();
+    const inputedPainaple = $("#painaple").val();
+    let newSize = new Sizes();
+    let Fullsize = new Size(inputedSizes);
+    newSize.addSize(Fullsize);
+    let newToping = new Topings();
+    let Fulltopings = new Toping(inputedCheese,inputedPepperoni,inputedArtichoke,inputedPainaple)
+    newToping.addToping(Fulltopings);
+    let newPizza = new Pizza(inputtedFullName,inputedPnoneno,newSize,newToping)
+    console.log("newPizza",newPizza)
+    pizzaparlor.addPizza(newPizza)
+    displayPizzaDetails(pizzaparlor)
+  }); 
+});    
