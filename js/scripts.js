@@ -20,11 +20,10 @@ pizzaParlor.prototype.findPizza = function(id) {
   return false;
 };
 
-function Pizza(fullname,phoneno,topings,sizes){
+function Pizza(fullname,phoneno,totalcost){
   this.fullname = fullname;
   this.phoneno = phoneno;
-  this.topings = topings;
-  this.sizes = sizes;
+  this.totalcost = totalcost
 }
 
 function Sizes(){
@@ -35,7 +34,6 @@ function Sizes(){
 Sizes.prototype.addSize = function(newsize) {
   newsize.id = this.assignId();
   this.sizes[newsize.id] = newsize;
-  
 };
 
 Sizes.prototype.assignId = function() {
@@ -44,7 +42,6 @@ Sizes.prototype.assignId = function() {
 };
 
 Sizes.prototype.findSize = function(id) {
-  console.log("sizeType",id)
   if (this.sizes[id] != undefined) {
     return this.sizes[id];
   }
@@ -64,7 +61,6 @@ newSize = new Size("medium", 12.00,"No");
 sizes.addSize(newSize);
 newSize = new Size("large", 14.00,"No");
 sizes.addSize(newSize);
-
 
 
 function Topings(){
@@ -89,21 +85,24 @@ Topings.prototype.findToping = function(id) {
   return false;
 };
 
-function Toping(topings,topingCost){
+function Toping(topings,topingCost,userSelectedToping){
   this.topings = topings;
   this.topingCost = topingCost
+  this.userSelectedToping = userSelectedToping;
 }
 
 let TotalCost = 0
 
 let topings = new Topings();
-let newToping = new Toping("cheese", 2.00);
+let newToping = new Toping("cheese", 2.00, "No");
 topings.addToping(newToping);
-newToping = new Toping("pinaple", 4.00);
+newToping = new Toping("pepperoni", 4.00, "No");
 topings.addToping(newToping);
-newToping = new Toping("peproni",8.00);
+newToping = new Toping("artichoke",8.00, "No");
 topings.addToping(newToping);
-console.log("topings",topings)
+newToping = new Toping("pinapple",8.00, "No");
+topings.addToping(newToping);
+
 
 //User interface logic
 
@@ -114,7 +113,7 @@ function displayPizzaDetails(pizzaToDisplay) {
   let htmlForPizza = "";
   Object.keys(pizzaToDisplay.pizzas).forEach(function(key) {
     const pizza = pizzaToDisplay.findPizza(key);
-    htmlForPizza += "<li id=" + pizza.id + ">" + pizza.fullname +  "</li>";
+    htmlForPizza += "<li id=" + pizza.id + ">" + pizza.fullname +"<br>"+ pizza.phoneno + "<br>" + pizza.totalcost + "</li>";
   });
   pizza.html(htmlForPizza);
 }
@@ -125,7 +124,7 @@ function displaySizeDetails(sizeToDisplay) {
   Object.keys(sizeToDisplay.sizes).forEach(function(key) {
     const size = sizeToDisplay.findSize(key);
     if(size.userSelectedSize === "Yes") { 
-      htmlForSize += "<li id=" + size.id + ">" + size.sizeType + " "  +  size.sizeCost +"</li>";
+      htmlForSize += "<li id=" + size.id + ">" + size.sizeType + " "  +  size.sizeCost + "</li>";
     }
   });
   pizzaSize.html(htmlForSize);
@@ -138,6 +137,7 @@ function costSize(inputedSizeType){
     return pizzaCostperSize = sizes.sizes[i].sizeCost
     }
   }
+  return pizzaCostperSize = 0
 }
 
 function displayTopingDetails(topingToDisplay) {
@@ -145,18 +145,22 @@ function displayTopingDetails(topingToDisplay) {
   let htmlForToping = "";
   Object.keys(topingToDisplay.topings).forEach(function(key) {
     const toping = topingToDisplay.findToping(key);
-      htmlForToping += "<li id=" + toping.id + ">" + toping.topingsType + " "   + "</li>";
+    if(toping.userSelectedToping === "Yes") { 
+      htmlForToping += "<li id=" + toping.id + ">" + toping.topings + " " + toping.topingCost + "</li>";
+    }  
   });
   pizzaToping.html(htmlForToping);
 }
 
 
 function costToping(inputedTopingType){
-  for (let i=1; i<4; i++) {
+  for (let i = 1; i < 4; i++) {
     if(topings.topings[i].topings === inputedTopingType){
-    return  pizzaCostpertoping = topings.topings[i].topingCost
+      topings.topings[i].userSelectedToping = "Yes";
+      return  pizzaCostpertoping = topings.topings[i].topingCost
     }
   }
+  return  pizzaCostpertoping = 0
 }
 
 function showPizza(pizzaId) {
@@ -164,8 +168,7 @@ function showPizza(pizzaId) {
   $("#show-pizza").show();
   $(".fname").html(pizza.fullName);
   $(".phonenum").html(pizza.phoneno);
-  $(".sizes").html(displaySizeDetails(pizza.sizes));
-  $(".topings").html(displayTopingDetails(pizza.topings));
+  $(".tcost").html(pizza.totalcost)
 }
 
 function attachPizzaListeners() {
@@ -185,20 +188,15 @@ $(document).ready(function() {
   const inputedSizes = $("input[name='type']:checked").val();
   $("input[type=checkbox]:checked").each ( function() {
     const inputedToping = $(this).val();
+    console.log("inputedToping.toLowerCase()",inputedToping.toLowerCase())
     pizzaCostperTopping += costToping(inputedToping.toLowerCase())
   });
   let pizzaCostperSize=costSize(inputedSizes)
   TotalCost = pizzaCostperSize + pizzaCostperTopping
- // let newSizes = new Sizes();
- // let Fullsize = new Size(inputedSizes);
- // newSizes.addSize(Fullsize);
- // let newTopings = new Topings();
- // let Fulltopings = new Toping(inputedToping)
- // newTopings.addToping(Fulltopings);
- // let newPizza = new Pizza(inputtedFullName,inputedPnoneno,newTopings,newSizes)
- // console.log("newPizza",newPizza)
- // pizzaparlor.addPizza(newPizza)
+  let newPizza = new Pizza(inputtedFullName,inputedPnoneno,TotalCost)
+  pizzaparlor.addPizza(newPizza)
   displayPizzaDetails(pizzaparlor)
   displaySizeDetails(sizes)
+  displayTopingDetails(topings)
   }); 
 });    
