@@ -47,6 +47,7 @@ Sizes.prototype.assignId = function() {
 };
 
 Sizes.prototype.findSize = function(id) {
+  console.log("sizeType",id)
   if (this.sizes[id] != undefined) {
     return this.sizes[id];
   }
@@ -90,11 +91,19 @@ Topings.prototype.findToping = function(id) {
   return false;
 };
 
-function Toping(topings){
+function Toping(topings,topingCost){
   this.topings = topings;
-  
+  this.topingCost = topingCost
 }
 
+let topings = new Topings();
+let newToping = new Toping("chease", 2.00);
+topings.addToping(newToping);
+newToping = new Toping("pinaple", 4.00);
+topings.addToping(newToping);
+newToping = new Toping("peproni",8.00);
+topings.addToping(newToping);
+console.log("topings",topings)
 //User interface logic
 
 //let pizzaparlor = new pizzaParlor();
@@ -110,15 +119,26 @@ function Toping(topings){
 }
 */
 function displaySizeDetails(sizeToDisplay) {
+ // console.log("key",key)
   let pizzaSize = $("ul#sizes");
   let htmlForSize = "";
   Object.keys(sizeToDisplay.sizes).forEach(function(key) {
+    //console.log("key",key)
     const size = sizeToDisplay.findSize(key);
     htmlForSize += "<li id=" + size.id + ">" + size.sizeType + " "  +  "</li>";
   });
   pizzaSize.html(htmlForSize);
 }
-
+function costSize(inputedSizeType){
+  console.log("inputedSize",inputedSizeType);
+  for (let i=1; i<4; i++) {
+    console.log("")
+    if(sizes.sizes[i].sizeType === inputedSizeType){
+    return  pizzaCostperSize = sizes.sizes[i].sizeCost
+    //console.log("pizzaCostperSize",pizzaCostperSize)
+    }
+  }
+}
 
 function displayTopingDetails(topingToDisplay) {
   let pizzaToping = $("ul#Topings");
@@ -148,15 +168,22 @@ function attachPizzaListeners() {
 */
 $(document).ready(function() {
   $("form#pizaform").submit(function(event) {
-    //attachPizzaListeners();
-    //event.preventDefault();
-   // const inputtedFullName = $("input#name").val();
-   // const inputedPnoneno = $("input#phone").val();
-  //  const inputedSizes = $("#size").val();
-  //  const inputedCheese = $("#cheese").val();
-  //  const inputedPepperoni = $("#pepperoni").val();
-  //  const inputedArtichoke= $("#artichoke").val();
-  //  const inputedPainaple = $("#painaple").val();
+  //attachPizzaListeners();
+  event.preventDefault();
+  const inputtedFullName = $("input#name").val();
+  const inputedPnoneno = $("input#phone").val();
+  const inputedSizes = $("input[name='type']:checked").val();
+  const inputedCheese = $("#cheese").val();
+  const inputedPepperoni = $("#pepperoni").val();
+  const inputedArtichoke= $("#artichoke").val();
+  const inputedPainaple = $("#painaple").val();
+  console.log("inputedSizes",inputedSizes)
+  //let FindSize = sizes.findSize(inputedSizes)
+  let pizzaCostperSize=costSize(inputedSizes)
+  console.log("pizzaCostperSize",pizzaCostperSize)
+  let TotalCost = pizzaCostperSize + pizzaCostperTopping
+  //console.log("FindSize",FindSize)
+  //console.log("sizes.test",sizes.sizes[1].sizeType[inputedSizes])
     //let newSizes = new Sizes();
     //let Fullsize = new Size(inputedSizes);
     //newSizes.addSize(Fullsize);
@@ -167,7 +194,7 @@ $(document).ready(function() {
   //  let newPizza = new Pizza(inputtedFullName,inputedPnoneno,newTopings,newSizes)
    // console.log("newPizza",newPizza)
    // pizzaparlor.addPizza(newPizza)
-    
+   //displaySizeDetails()
     //displayPizzaDetails(pizzaparlor)
   }); 
 });    
