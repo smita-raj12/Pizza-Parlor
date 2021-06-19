@@ -55,11 +55,11 @@ function Size(sizeType,sizeCost,userSelectedSize){
 }
 
 let sizes = new Sizes();
-let newSize = new Size("small", 10.00,"No");
+let newSize = new Size("Small Size", 10.00,"No");
 sizes.addSize(newSize);
-newSize = new Size("medium", 12.00,"No");
+newSize = new Size("Medium Size", 12.00,"No");
 sizes.addSize(newSize);
-newSize = new Size("large", 14.00,"No");
+newSize = new Size("Large Size", 14.00,"No");
 sizes.addSize(newSize);
 
 
@@ -94,13 +94,13 @@ function Toping(topings,topingCost,userSelectedToping){
 let TotalCost = 0
 
 let topings = new Topings();
-let newToping = new Toping("cheese", 2.00, "No");
+let newToping = new Toping("Cheese", 2.00, "No");
 topings.addToping(newToping);
-newToping = new Toping("pepperoni", 4.00, "No");
+newToping = new Toping("Pepperoni", 2.00, "No");
 topings.addToping(newToping);
-newToping = new Toping("artichoke",8.00, "No");
+newToping = new Toping("Artichoke",2.00, "No");
 topings.addToping(newToping);
-newToping = new Toping("pinapple",8.00, "No");
+newToping = new Toping("Pinapple",2.00, "No");
 topings.addToping(newToping);
 
 
@@ -186,12 +186,11 @@ $(document).ready(function() {
   const inputtedFullName = $("input#name").val();
   const inputedPnoneno = $("input#phone").val();
   const inputedSizes = $("input[name='type']:checked").val();
-  $("input[type=checkbox]:checked").each ( function() {
+  $("input[type=checkbox]:checked").each( function() {
     const inputedToping = $(this).val();
-    console.log("inputedToping.toLowerCase()",inputedToping.toLowerCase())
-    pizzaCostperTopping += costToping(inputedToping.toLowerCase())
+    pizzaCostperTopping += costToping(inputedToping)
   });
-  let pizzaCostperSize=costSize(inputedSizes)
+  let pizzaCostperSize = costSize(inputedSizes)
   TotalCost = pizzaCostperSize + pizzaCostperTopping
   let newPizza = new Pizza(inputtedFullName,inputedPnoneno,TotalCost)
   pizzaparlor.addPizza(newPizza)
