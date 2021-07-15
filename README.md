@@ -4,11 +4,11 @@
   _Pizza Parlor_
 
 `This webs application for a pizza company where a user can choose one or more` `individual toppings (cheese, pepperoni, artichoke, anchovy, etc) and a size` 
-  `to rder a pizza and see the final cost`.
+  `to order a pizza and see the final cost`.
 
-## Description: pizzaParlor()
+### Description: pizzaParlor()
 
-### constructors:  
+### Objects:  
 
 * Pizza{}
 * sizes{}
@@ -19,6 +19,14 @@
 * sizes = new Sizes()
 * topings = new Topings()
 * pizzaparlor = new pizzaParlor()
+
+
+
+## Description: costSize()
+
+- `Test :If user selects a pizza size it should it should return cost depending on the size of pizza.`
+- `code : costSize(small size)`
+- `Expected Output :small size 10`
 
 
 ## Name of contributor:

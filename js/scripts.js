@@ -185,7 +185,7 @@ $(document).ready(function() {
   let pizzaCostperTopping = 0
   const inputtedFullName = $("input#name").val();
   const inputedPnoneno = $("input#phone").val();
-  const inputedSizes = $("input[name='type']:checked").val();
+  const inputedSizes = $("#size").val();
   $("input[type=checkbox]:checked").each( function() {
     const inputedToping = $(this).val();
     pizzaCostperTopping += costToping(inputedToping)
