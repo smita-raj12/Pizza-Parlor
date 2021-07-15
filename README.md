@@ -28,6 +28,14 @@
 - `code : costSize(small size)`
 - `Expected Output :small size 10`
 
+## Description: costToping()
+
+- `Test :If user selects a pizza topping it should it should return cost depending on the selected topings  of pizza.`
+- `code : costToping(Cheese,Pepperoni)`
+- `Expected Output :small size 10`
+                    `Cheese 2`
+                    `Pepperoni 2`
+                    `14` 
 
 ## Name of contributor:
 
