@@ -150,11 +150,7 @@ function displayPizzaDetails(pizzaToDisplay) {
   let htmlForPizza = "";
   Object.keys(pizzaToDisplay.pizzas).forEach(function(key) {
     const pizza = pizzaToDisplay.findPizza(key);
-<<<<<<< HEAD
-    htmlForPizza += "<li id=" + pizza.id + ">" + pizza.fullname + "</li>";
-=======
     htmlForPizza += "<li id=" + pizza.id + ">" + pizza.fullname +  "</li>";
->>>>>>> main
   });
   pizza.html(htmlForPizza);
 }
@@ -247,12 +243,7 @@ function attachPizzaListeners() {
 }
 
 function attachDeliveryTypeListeners() {
-<<<<<<< HEAD
-  console.log("test3")
-    $("#inline_content input[name='deliverytype']").click( function() {
-=======
   $("#inline_content input[name='deliverytype']").click( function() {
->>>>>>> main
       if($('input:radio[name=deliverytype]:checked').val() == "home"){
         $("#addressdisp-form").slideDown("slow");
     }else{
@@ -261,16 +252,6 @@ function attachDeliveryTypeListeners() {
   });
 }
 
-<<<<<<< HEAD
-$(document).ready(function() {
-  $("#addressdisp-form").hide()
-  attachDeliveryTypeListeners()
-  $("form#pizaform").submit(function(event) {
-  attachPizzaListeners();
-  console.log("test2")
-  event.preventDefault();
-  const inputedDelivaryType = $("input[name='deliverytype']:checked").val();
-=======
 let newAddresses = new Addresses();
 function attachAddressListeners() {
   $("ul#addresses").on("click", "li", function() {
@@ -299,7 +280,6 @@ $(document).ready(function() {
   const inputtedAddressStreet = $("input#new-street").val();
   const inputtedAddressRegion = $("input#new-region").val();
   const inputtedAddressPostalCode = $("input#new-postal-code").val();
->>>>>>> main
   let pizzaCostperTopping = 0
   const inputtedFullName = $("input#name").val();
   const inputedPnoneno = $("input#phone").val();
