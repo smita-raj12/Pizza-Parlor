@@ -179,6 +179,7 @@ function attachPizzaListeners() {
 }
 
 $(document).ready(function() {
+  
   $("form#pizaform").submit(function(event) {
   attachPizzaListeners();
   event.preventDefault();
