@@ -113,7 +113,7 @@ function displayPizzaDetails(pizzaToDisplay) {
   let htmlForPizza = "";
   Object.keys(pizzaToDisplay.pizzas).forEach(function(key) {
     const pizza = pizzaToDisplay.findPizza(key);
-    htmlForPizza += "<li id=" + pizza.id + ">" + pizza.fullname +"<br>"+ pizza.phoneno + "<br>" + pizza.totalcost + "</li>";
+    htmlForPizza += "<li id=" + pizza.id + ">" + pizza.fullname +  "</li>";
   });
   pizza.html(htmlForPizza);
 }
@@ -166,7 +166,7 @@ function costToping(inputedTopingType){
 function showPizza(pizzaId) {
   const pizza = pizzaparlor.findPizza(pizzaId);
   $("#show-pizza").show();
-  $(".fname").html(pizza.fullName);
+  $(".fname").html(pizza.fullname);
   $(".phonenum").html(pizza.phoneno);
   $(".tcost").html(pizza.totalcost)
 }
