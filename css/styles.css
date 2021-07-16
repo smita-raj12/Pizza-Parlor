@@ -14,3 +14,7 @@ body {
 #show-pizza{
   display: none;
 }
+
+#show-address{
+  display: none;
+}
