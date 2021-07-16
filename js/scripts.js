@@ -215,8 +215,11 @@ function showPizza(pizzaId) {
   $(".fname").html(pizza.fullname);
   $(".phonenum").html(pizza.phoneno);
   $(".tcost").html(pizza.totalcost)
-  showAddress(1)
-}
+  if($('input:radio[name=deliverytype]:checked').val() == "home"){
+    showAddress(1)
+  }else{
+    $("#show-address").hide();
+  }
 
 //functio for displaying address
 
