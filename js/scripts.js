@@ -178,11 +178,23 @@ function attachPizzaListeners() {
   displayPizzaDetails(pizzaparlor)
 }
 
+function attachDeliveryTypeListeners() {
+  console.log("test3")
+    $("#inline_content input[name='deliverytype']:checked").click( function() {
+     console.log("check delivary type");
+  });
+  //displayPizzaDetails(pizzaparlor)
+}
+
 $(document).ready(function() {
-  
+  console.log("test1")
+  attachDeliveryTypeListeners()
   $("form#pizaform").submit(function(event) {
   attachPizzaListeners();
+  console.log("test2")
   event.preventDefault();
+  const inputedDelivaryType = $("input[name='deliverytype']:checked").val();
+  console.log("inputedDelivaryType",inputedDelivaryType)
   let pizzaCostperTopping = 0
   const inputtedFullName = $("input#name").val();
   const inputedPnoneno = $("input#phone").val();
@@ -191,6 +203,7 @@ $(document).ready(function() {
     const inputedToping = $(this).val();
     pizzaCostperTopping += costToping(inputedToping)
   });
+
   let pizzaCostperSize = costSize(inputedSizes)
   TotalCost = pizzaCostperSize + pizzaCostperTopping
   let newPizza = new Pizza(inputtedFullName,inputedPnoneno,TotalCost)
