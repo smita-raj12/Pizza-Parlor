@@ -180,14 +180,17 @@ function attachPizzaListeners() {
 
 function attachDeliveryTypeListeners() {
   console.log("test3")
-    $("#inline_content input[name='deliverytype']:checked").click( function() {
-     console.log("check delivary type");
+    $("#inline_content input[name='deliverytype']").click( function() {
+      if($('input:radio[name=deliverytype]:checked').val() == "home"){
+        $("#addressdisp-form").slideDown("slow");
+    }else{
+      $("#addressdisp-form").hide();
+    }
   });
-  //displayPizzaDetails(pizzaparlor)
 }
 
 $(document).ready(function() {
-  console.log("test1")
+  $("#addressdisp-form").hide()
   attachDeliveryTypeListeners()
   $("form#pizaform").submit(function(event) {
   attachPizzaListeners();
