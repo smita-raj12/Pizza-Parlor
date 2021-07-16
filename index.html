@@ -14,6 +14,24 @@
       <div class="col-md-6">
         <h3>Order Pizza Here:</h3>
         <form id="pizaform">
+          <div id="inline_content">
+            <form class="type">
+                <input type="radio" name="deliverytype" id="carry" value="carry">
+                <label for="carry">carry out</label>
+                <input type="radio" name="deliverytype" id="home" value="home">
+                <label for="home">Home delivary</label>
+            </form>
+          </div>
+          <div id="addressdisp-form">
+            <div class="form-group">
+              <label for="new-street">Street</label>
+              <input type="text" class="form-control" id="new-street">
+              <label for="new-region">Region</label>
+              <input type="text" class="form-control" id="new-region">
+              <label for="new-postal-code">Postal Code</label>
+              <input type="text" class="form-control" id="new-postal-code">
+            </div>
+          </div>
           <div class="form-group">
             <label for="name">Full Name</label>
             <input type="text"  class="form-control" id="name">
