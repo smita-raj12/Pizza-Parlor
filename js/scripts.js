@@ -197,7 +197,6 @@ $(document).ready(function() {
   console.log("test2")
   event.preventDefault();
   const inputedDelivaryType = $("input[name='deliverytype']:checked").val();
-  console.log("inputedDelivaryType",inputedDelivaryType)
   let pizzaCostperTopping = 0
   const inputtedFullName = $("input#name").val();
   const inputedPnoneno = $("input#phone").val();
