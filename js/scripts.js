@@ -109,6 +109,7 @@ topings.addToping(newToping);
 let pizzaparlor = new pizzaParlor();
 
 function displayPizzaDetails(pizzaToDisplay) {
+  console.log("displaying pizza")
   let pizza = $("ul#Pizzas");
   let htmlForPizza = "";
   Object.keys(pizzaToDisplay.pizzas).forEach(function(key) {
@@ -178,10 +179,24 @@ function attachPizzaListeners() {
   displayPizzaDetails(pizzaparlor)
 }
 
+function attachDeliveryTypeListeners() {
+  console.log("test3")
+    $("#inline_content input[name='deliverytype']").click( function() {
+      if($('input:radio[name=deliverytype]:checked').val() == "home"){
+        $("#addressdisp-form").slideDown("slow");
+    }else{
+      $("#addressdisp-form").hide();
+    }
+  });
+}
+
 $(document).ready(function() {
-  $("form#pizaform").submit(function(event) {
   attachPizzaListeners();
+  $("#addressdisp-form").hide();
+  attachDeliveryTypeListeners();
+  $("form#pizaform").submit(function(event) {
   event.preventDefault();
+  const inputedDelivaryType = $("input[name='deliverytype']:checked").val();
   let pizzaCostperTopping = 0
   const inputtedFullName = $("input#name").val();
   const inputedPnoneno = $("input#phone").val();
