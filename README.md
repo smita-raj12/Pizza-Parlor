@@ -3,8 +3,8 @@
   
   _Pizza Parlor_
 
-`This webs application for a pizza company where a user can choose one or more` `individual toppings (cheese, pepperoni, artichoke, anchovy, etc) and a size` 
-  `to order a pizza and see the final cost`.
+`This web application works for a pizza company where a user can choose one or more` `individual toppings (cheese, pepperoni, artichoke, anchovy, etc) and a size` 
+  `to order a pizza and see the final cost. And there is 2 options carry out and home delivery if you select home delivery redio button the application asks for you to add address form. `
 
 ### Description: pizzaParlor()
 
@@ -13,13 +13,14 @@
 * Pizza{}
 * sizes{}
 * Topings{}
+* Address{}
 
 ### Inputs
 
 * sizes = new Sizes()
 * topings = new Topings()
 * pizzaparlor = new pizzaParlor()
-
+* addresses = new Addresses()
 
 
 ## Description: costSize()
@@ -43,7 +44,7 @@ Smita
 
 ## Live Site:
 
-[Link](https://smita-raj12.github.io/Pizza-Parlor)
+[https://smita-raj12.github.io/Pizza-Parlor](https://smita-raj12.github.io/Pizza-Parlor)
 
 ## Technologies used:
 
