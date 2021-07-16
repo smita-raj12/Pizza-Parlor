@@ -221,6 +221,8 @@ function showPizza(pizzaId) {
     $("#show-address").hide();
   }
 
+}
+
 //functio for displaying address
 
 
@@ -297,10 +299,10 @@ $(document).ready(function() {
   let FullAddress = new Address(inputtedAddressStreet, inputtedAddressRegion, inputtedAddressPostalCode)
   newAddresses.addAddress(FullAddress)
   let newPizza = new Pizza(inputtedFullName,inputedPnoneno,TotalCost,newAddresses)
-  pizzaparlor.addPizza(newPizza)
-  displayAddressDetails(newAddresses)
-  displayPizzaDetails(pizzaparlor)
-  displaySizeDetails(sizes)
-  displayTopingDetails(topings)
+  pizzaparlor.addPizza(newPizza);
+  // displayAddressDetails(newAddresses);
+  displayPizzaDetails(pizzaparlor);
+  displaySizeDetails(sizes);
+  displayTopingDetails(topings);
   }); 
 });    
