@@ -1,0 +1,20 @@
+h1{
+  color: brown;
+  text-align: center;
+  width: 800px;
+  border: 3px solid green;
+  padding: 30px;
+  margin: 20px;
+}
+
+body {
+  background-color: blanchedalmond;
+}
+
+#show-pizza{
+  display: none;
+}
+
+#show-address{
+  display: none;
+}

@@ -1,3 +1,5 @@
+//construction function for pizza parlor
+
 function pizzaParlor(){
   this.pizzas = {};
   this.currentId = 0;
@@ -20,11 +22,14 @@ pizzaParlor.prototype.findPizza = function(id) {
   return false;
 };
 
-function Pizza(fullname,phoneno,totalcost){
+function Pizza(fullname,phoneno,totalcost,addresses){
   this.fullname = fullname;
   this.phoneno = phoneno;
   this.totalcost = totalcost
+  this.addresses = addresses
 }
+
+//functios for selecting sizes
 
 function Sizes(){
   this.sizes = {};
@@ -62,6 +67,8 @@ sizes.addSize(newSize);
 newSize = new Size("Large Size", 14.00,"No");
 sizes.addSize(newSize);
 
+
+// functions for selecting toppings
 
 function Topings(){
   this.topings = {};
@@ -103,8 +110,38 @@ topings.addToping(newToping);
 newToping = new Toping("Pinapple",2.00, "No");
 topings.addToping(newToping);
 
+// functions for adding address if you select home delivery redio button
 
-//User interface logic
+function Addresses() {
+  this.addresses = {};
+  this.currentId = 0;
+}
+
+
+Addresses.prototype.addAddress = function(address) {
+  address.id = this.assignAddressId();
+  this.addresses[1] = address;
+};
+
+Addresses.prototype.assignAddressId = function () {
+  this.currentId += 1;
+  return this.currentId;
+};
+
+Addresses.prototype.findAddress = function (id) {
+  if (this.addresses[id] != undefined) {
+    return this.addresses[id];
+  }
+  return false;
+};
+
+function Address( street, region, postalCode) {
+  this.street = street;
+  this.region = region;
+  this.postalCode = postalCode;
+}
+
+//User interface logic for pizza parlor
 
 let pizzaparlor = new pizzaParlor();
 
@@ -113,10 +150,16 @@ function displayPizzaDetails(pizzaToDisplay) {
   let htmlForPizza = "";
   Object.keys(pizzaToDisplay.pizzas).forEach(function(key) {
     const pizza = pizzaToDisplay.findPizza(key);
+<<<<<<< HEAD
     htmlForPizza += "<li id=" + pizza.id + ">" + pizza.fullname + "</li>";
+=======
+    htmlForPizza += "<li id=" + pizza.id + ">" + pizza.fullname +  "</li>";
+>>>>>>> main
   });
   pizza.html(htmlForPizza);
 }
+
+//functions for displaying size details
 
 function displaySizeDetails(sizeToDisplay) {
   let pizzaSize = $("ul#sizes");
@@ -130,6 +173,8 @@ function displaySizeDetails(sizeToDisplay) {
   pizzaSize.html(htmlForSize);
 }
 
+//function for calcutating cost of size
+
 function costSize(inputedSizeType){
   for (let i=1; i<4; i++) {
     if(sizes.sizes[i].sizeType === inputedSizeType){
@@ -139,6 +184,8 @@ function costSize(inputedSizeType){
   }
   return pizzaCostperSize = 0
 }
+
+//function for displaying toppings details
 
 function displayTopingDetails(topingToDisplay) {
   let pizzaToping = $("ul#Topings");
@@ -152,6 +199,7 @@ function displayTopingDetails(topingToDisplay) {
   pizzaToping.html(htmlForToping);
 }
 
+//functions for calculating topping cost
 
 function costToping(inputedTopingType){
   for (let i = 1; i < 4; i++) {
@@ -163,13 +211,33 @@ function costToping(inputedTopingType){
   return  pizzaCostpertoping = 0
 }
 
+
+
 function showPizza(pizzaId) {
   const pizza = pizzaparlor.findPizza(pizzaId);
   $("#show-pizza").show();
-  $(".fname").html(pizza.fullName);
+  $(".fname").html(pizza.fullname);
   $(".phonenum").html(pizza.phoneno);
   $(".tcost").html(pizza.totalcost)
+  showAddress(1)
 }
+
+//functio for displaying address
+
+
+function displayAddressDetails(pizza) {
+  let addressList = $("ul#addresses");
+  let htmlForAddressInfo = "";
+  Object.keys(pizza.addresses).forEach(function (key) {
+    const address = pizza.findAddress(key);
+    if($('input:radio[name=deliverytype]:checked').val() == "home"){
+      htmlForAddressInfo += "<li id=" + address.id + ">" + address.street + "</li>";
+    }
+  });
+  addressList.html(htmlForAddressInfo);
+}
+
+//functions for attaching event listeners
 
 function attachPizzaListeners() {
   $("ul#Pizzas").on("click", "li", function() {
@@ -179,8 +247,12 @@ function attachPizzaListeners() {
 }
 
 function attachDeliveryTypeListeners() {
+<<<<<<< HEAD
   console.log("test3")
     $("#inline_content input[name='deliverytype']").click( function() {
+=======
+  $("#inline_content input[name='deliverytype']").click( function() {
+>>>>>>> main
       if($('input:radio[name=deliverytype]:checked').val() == "home"){
         $("#addressdisp-form").slideDown("slow");
     }else{
@@ -189,6 +261,7 @@ function attachDeliveryTypeListeners() {
   });
 }
 
+<<<<<<< HEAD
 $(document).ready(function() {
   $("#addressdisp-form").hide()
   attachDeliveryTypeListeners()
@@ -197,10 +270,40 @@ $(document).ready(function() {
   console.log("test2")
   event.preventDefault();
   const inputedDelivaryType = $("input[name='deliverytype']:checked").val();
+=======
+let newAddresses = new Addresses();
+function attachAddressListeners() {
+  $("ul#addresses").on("click", "li", function() {
+    showAddress(this.id);
+  });
+  displayAddressDetails(newAddresses)
+}
+
+
+function showAddress(addressId) {
+  const address = newAddresses.findAddress(addressId);
+  $("#show-address").show();
+  $(".street").html(address.street);
+  $(".region").html(address.region);
+  $(".postal").html(address.postalCode)
+}
+
+$(document).ready(function() {
+  attachPizzaListeners();
+  attachAddressListeners()
+  $("#addressdisp-form").hide();
+  attachDeliveryTypeListeners();
+  $("form#pizaform").submit(function(event) {
+  event.preventDefault();
+  const inputedDelivaryType = $("input[name='deliverytype']:checked").val();
+  const inputtedAddressStreet = $("input#new-street").val();
+  const inputtedAddressRegion = $("input#new-region").val();
+  const inputtedAddressPostalCode = $("input#new-postal-code").val();
+>>>>>>> main
   let pizzaCostperTopping = 0
   const inputtedFullName = $("input#name").val();
   const inputedPnoneno = $("input#phone").val();
-  const inputedSizes = $("input[name='type']:checked").val();
+  const inputedSizes = $("#size").val();
   $("input[type=checkbox]:checked").each( function() {
     const inputedToping = $(this).val();
     pizzaCostperTopping += costToping(inputedToping)
@@ -208,8 +311,11 @@ $(document).ready(function() {
 
   let pizzaCostperSize = costSize(inputedSizes)
   TotalCost = pizzaCostperSize + pizzaCostperTopping
-  let newPizza = new Pizza(inputtedFullName,inputedPnoneno,TotalCost)
+  let FullAddress = new Address(inputtedAddressStreet, inputtedAddressRegion, inputtedAddressPostalCode)
+  newAddresses.addAddress(FullAddress)
+  let newPizza = new Pizza(inputtedFullName,inputedPnoneno,TotalCost,newAddresses)
   pizzaparlor.addPizza(newPizza)
+  displayAddressDetails(newAddresses)
   displayPizzaDetails(pizzaparlor)
   displaySizeDetails(sizes)
   displayTopingDetails(topings)

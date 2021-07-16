@@ -13,9 +13,10 @@
     <h1>Pizza Parlor</h1>
     <div class="row">
       <div class="col-md-6">
-        <h2>Order Pizza Here:</h2>
+        <h3>Order Pizza Here:</h3>
         <form id="pizaform">
           <div id="inline_content">
+<<<<<<< HEAD
             <form class="type">
                 <input type="radio" name="deliverytype" id="carry" value="carry">
                 <label for="carry">carry out</label>
@@ -23,6 +24,13 @@
                 <label for="home">Home delivary</label>
             </form>
             </div>
+=======
+            <input type="radio" name="deliverytype" id="carry" value="carry">
+            <label for="carry">carry out</label>
+            <input type="radio" name="deliverytype" id="home" value="home">
+            <label for="home">Home delivary</label>
+          </div>
+>>>>>>> main
           <div id="addressdisp-form">
             <div class="form-group">
               <label for="new-street">Street</label>
@@ -42,16 +50,15 @@
             <input type="text"  class="form-control" id="phone">
           </div>
           <div class="form-group">
-            <h2 id="size">Sizes</h2>
-            <input type="radio" name="type" id="Small Size" value="Small Size">
-            <label for="Small Size">Small Size</label>
-            <input type="radio" name="type" id="Medium Size" value="Medium Size">
-            <label for="Medium Size">Medium Size</label>
-            <input type="radio" name="type" id="Large Size" value="Large Size">
-            <label for="Large Size">Large Size</label>
+            <h3>Sizes</h3>
+            <select class="form-control" id="size">
+              <option value="Small Size">Small Size</option>
+              <option value="Medium Size">Medium Size</option>
+              <option value="Large Size">Large Size</option>
+            </select>
           </div>
           <div class="form-group">
-            <h2 id ="topping">Toppings</h2>  
+            <h3 id ="topping">Toppings</h3>  
             <input type="checkbox"  id="Cheese" name="Cheese" value="Cheese">
             <label for="Cheese"> Cheese</label><br>
             <input type="checkbox"  id="Pepperoni" name="Pepperoni" value="Pepperoni">
@@ -66,15 +73,29 @@
       </div>  
       <div class= "col-6">
         <div>
-          <h2>Your Order:</h2>
+          <h3>Your Order:</h3>
           <ul id="sizes"></ul>
           <ul id="Topings"></ul>
-          <h2>Your Recipt:</h2>
+          <h3>Your Recipt:</h3>
           <ul id="Pizzas"></ul>
+<<<<<<< HEAD
           <div id="show-pizza">
             <p>Phone No:<span class="phonenum"></span></p>
             <p>Total Cost:<span class="tcost"></span></p>
           </div> 
+=======
+          <ul id="addresses"></ul>
+          <div id="show-pizza">
+            <p>Full Name: <span class="fname"></span></p>
+            <p>Phone No:<span class="phonenum"></span></p>
+            <p>Total Cost:<span class="tcost"></span></p>
+          </div> 
+          <div id="show-address">
+            <p>Street:<span class="street"></span></p>
+            <p>Region:<span class="region"></span></p>
+            <p>Postal code:<span class="postal"></span></p>
+          </div>
+>>>>>>> main
         </div>
       </div>
     </div>
