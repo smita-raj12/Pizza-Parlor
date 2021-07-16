@@ -214,8 +214,12 @@ function showPizza(pizzaId) {
   $("#show-pizza").show();
   $(".fname").html(pizza.fullname);
   $(".phonenum").html(pizza.phoneno);
-  $(".tcost").html(pizza.totalcost)
-  showAddress(1)
+  $(".tcost").html(pizza.totalcost);
+  if($('input:radio[name=deliverytype]:checked').val() == "home"){
+    showAddress(1)
+  }else{
+    $("#show-address").hide();
+  }
 }
 
 //functio for displaying address
@@ -228,6 +232,8 @@ function displayAddressDetails(pizza) {
     const address = pizza.findAddress(key);
     if($('input:radio[name=deliverytype]:checked').val() == "home"){
       htmlForAddressInfo += "<li id=" + address.id + ">" + address.street + "</li>";
+    }else{
+      $("#show-address").hide();
     }
   });
   addressList.html(htmlForAddressInfo);
@@ -295,7 +301,7 @@ $(document).ready(function() {
   newAddresses.addAddress(FullAddress)
   let newPizza = new Pizza(inputtedFullName,inputedPnoneno,TotalCost,newAddresses)
   pizzaparlor.addPizza(newPizza)
-  displayAddressDetails(newAddresses)
+  //displayAddressDetails(newAddresses)
   displayPizzaDetails(pizzaparlor)
   displaySizeDetails(sizes)
   displayTopingDetails(topings)
