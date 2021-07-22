@@ -153,6 +153,8 @@ function displaySizeDetails(sizeToDisplay) {
 }
 
 //function for calcutating cost of size
+
+
 let sizes = new Sizes();
 let newSize = new Size("Small Size", 10.00,"No");
 sizes.addSize(newSize);
@@ -186,6 +188,8 @@ function displayTopingDetails(topingToDisplay) {
 }
 
 //functions for calculating topping cost
+
+
 let topings = new Topings();
 let newToping = new Toping("Cheese", 2.00, "No");
 topings.addToping(newToping);
@@ -213,20 +217,12 @@ function showPizza(pizzaId) {
   $("#show-pizza").show();
   $(".fname").html(pizza.fullname);
   $(".phonenum").html(pizza.phoneno);
-<<<<<<< HEAD
-  $(".tcost").html(pizza.totalcost);
-=======
   $(".tcost").html(pizza.totalcost)
->>>>>>> gh-pages
   if($('input:radio[name=deliverytype]:checked').val() == "home"){
     showAddress(1)
   }else{
     $("#show-address").hide();
   }
-<<<<<<< HEAD
-=======
-
->>>>>>> gh-pages
 }
 
 //functio for displaying address
@@ -303,18 +299,6 @@ $(document).ready(function() {
     pizzaCostperTopping += costToping(inputedToping)
   });
 
-<<<<<<< HEAD
-  let pizzaCostperSize = costSize(inputedSizes)
-  TotalCost = pizzaCostperSize + pizzaCostperTopping
-  let FullAddress = new Address(inputtedAddressStreet, inputtedAddressRegion, inputtedAddressPostalCode)
-  newAddresses.addAddress(FullAddress)
-  let newPizza = new Pizza(inputtedFullName,inputedPnoneno,TotalCost,newAddresses)
-  pizzaparlor.addPizza(newPizza)
-  //displayAddressDetails(newAddresses)
-  displayPizzaDetails(pizzaparlor)
-  displaySizeDetails(sizes)
-  displayTopingDetails(topings)
-=======
   let pizzaCostperSize = costSize(inputedSizes);
   TotalCost = pizzaCostperSize + pizzaCostperTopping;
   let FullAddress = new Address(inputtedAddressStreet, inputtedAddressRegion, inputtedAddressPostalCode);
@@ -324,6 +308,5 @@ $(document).ready(function() {
   displayPizzaDetails(pizzaparlor);
   displaySizeDetails(sizes);
   displayTopingDetails(topings);
->>>>>>> gh-pages
   }); 
 });    
