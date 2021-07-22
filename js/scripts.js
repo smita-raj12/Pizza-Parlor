@@ -59,14 +59,6 @@ function Size(sizeType,sizeCost,userSelectedSize){
   this.userSelectedSize = userSelectedSize;
 }
 
-let sizes = new Sizes();
-let newSize = new Size("Small Size", 10.00,"No");
-sizes.addSize(newSize);
-newSize = new Size("Medium Size", 12.00,"No");
-sizes.addSize(newSize);
-newSize = new Size("Large Size", 14.00,"No");
-sizes.addSize(newSize);
-
 
 // functions for selecting toppings
 
@@ -100,15 +92,6 @@ function Toping(topings,topingCost,userSelectedToping){
 
 let TotalCost = 0
 
-let topings = new Topings();
-let newToping = new Toping("Cheese", 2.00, "No");
-topings.addToping(newToping);
-newToping = new Toping("Pepperoni", 2.00, "No");
-topings.addToping(newToping);
-newToping = new Toping("Artichoke",2.00, "No");
-topings.addToping(newToping);
-newToping = new Toping("Pinapple",2.00, "No");
-topings.addToping(newToping);
 
 // functions for adding address if you select home delivery redio button
 
@@ -143,7 +126,7 @@ function Address( street, region, postalCode) {
 
 //User interface logic for pizza parlor
 
-let pizzaparlor = new pizzaParlor();
+
 
 function displayPizzaDetails(pizzaToDisplay) {
   let pizza = $("ul#Pizzas");
@@ -170,6 +153,13 @@ function displaySizeDetails(sizeToDisplay) {
 }
 
 //function for calcutating cost of size
+let sizes = new Sizes();
+let newSize = new Size("Small Size", 10.00,"No");
+sizes.addSize(newSize);
+newSize = new Size("Medium Size", 12.00,"No");
+sizes.addSize(newSize);
+newSize = new Size("Large Size", 14.00,"No");
+sizes.addSize(newSize);
 
 function costSize(inputedSizeType){
   for (let i=1; i<4; i++) {
@@ -196,6 +186,15 @@ function displayTopingDetails(topingToDisplay) {
 }
 
 //functions for calculating topping cost
+let topings = new Topings();
+let newToping = new Toping("Cheese", 2.00, "No");
+topings.addToping(newToping);
+newToping = new Toping("Pepperoni", 2.00, "No");
+topings.addToping(newToping);
+newToping = new Toping("Artichoke",2.00, "No");
+topings.addToping(newToping);
+newToping = new Toping("Pinapple",2.00, "No");
+topings.addToping(newToping);
 
 function costToping(inputedTopingType){
   for (let i = 1; i < 4; i++) {
@@ -207,19 +206,27 @@ function costToping(inputedTopingType){
   return  pizzaCostpertoping = 0
 }
 
-
+let pizzaparlor = new pizzaParlor();
 
 function showPizza(pizzaId) {
   const pizza = pizzaparlor.findPizza(pizzaId);
   $("#show-pizza").show();
   $(".fname").html(pizza.fullname);
   $(".phonenum").html(pizza.phoneno);
+<<<<<<< HEAD
   $(".tcost").html(pizza.totalcost);
+=======
+  $(".tcost").html(pizza.totalcost)
+>>>>>>> gh-pages
   if($('input:radio[name=deliverytype]:checked').val() == "home"){
     showAddress(1)
   }else{
     $("#show-address").hide();
   }
+<<<<<<< HEAD
+=======
+
+>>>>>>> gh-pages
 }
 
 //functio for displaying address
@@ -259,6 +266,7 @@ function attachDeliveryTypeListeners() {
 }
 
 let newAddresses = new Addresses();
+
 function attachAddressListeners() {
   $("ul#addresses").on("click", "li", function() {
     showAddress(this.id);
@@ -280,9 +288,9 @@ $(document).ready(function() {
   attachAddressListeners()
   $("#addressdisp-form").hide();
   attachDeliveryTypeListeners();
+
   $("form#pizaform").submit(function(event) {
   event.preventDefault();
-  const inputedDelivaryType = $("input[name='deliverytype']:checked").val();
   const inputtedAddressStreet = $("input#new-street").val();
   const inputtedAddressRegion = $("input#new-region").val();
   const inputtedAddressPostalCode = $("input#new-postal-code").val();
@@ -295,6 +303,7 @@ $(document).ready(function() {
     pizzaCostperTopping += costToping(inputedToping)
   });
 
+<<<<<<< HEAD
   let pizzaCostperSize = costSize(inputedSizes)
   TotalCost = pizzaCostperSize + pizzaCostperTopping
   let FullAddress = new Address(inputtedAddressStreet, inputtedAddressRegion, inputtedAddressPostalCode)
@@ -305,5 +314,16 @@ $(document).ready(function() {
   displayPizzaDetails(pizzaparlor)
   displaySizeDetails(sizes)
   displayTopingDetails(topings)
+=======
+  let pizzaCostperSize = costSize(inputedSizes);
+  TotalCost = pizzaCostperSize + pizzaCostperTopping;
+  let FullAddress = new Address(inputtedAddressStreet, inputtedAddressRegion, inputtedAddressPostalCode);
+  newAddresses.addAddress(FullAddress);
+  let newPizza = new Pizza(inputtedFullName,inputedPnoneno,TotalCost,newAddresses);
+  pizzaparlor.addPizza(newPizza);
+  displayPizzaDetails(pizzaparlor);
+  displaySizeDetails(sizes);
+  displayTopingDetails(topings);
+>>>>>>> gh-pages
   }); 
 });    
