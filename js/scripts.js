@@ -126,8 +126,6 @@ function Address( street, region, postalCode) {
 
 //User interface logic for pizza parlor
 
-
-
 function displayPizzaDetails(pizzaToDisplay) {
   let pizza = $("ul#Pizzas");
   let htmlForPizza = "";
@@ -155,15 +153,7 @@ function displaySizeDetails(sizeToDisplay) {
 //function for calcutating cost of size
 
 
-let sizes = new Sizes();
-let newSize = new Size("Small Size", 10.00,"No");
-sizes.addSize(newSize);
-newSize = new Size("Medium Size", 12.00,"No");
-sizes.addSize(newSize);
-newSize = new Size("Large Size", 14.00,"No");
-sizes.addSize(newSize);
-
-function costSize(inputedSizeType){
+function costSize(inputedSizeType,sizes){
   for (let i=1; i<4; i++) {
     if(sizes.sizes[i].sizeType === inputedSizeType){
       sizes.sizes[i].userSelectedSize = "Yes"
@@ -189,18 +179,7 @@ function displayTopingDetails(topingToDisplay) {
 
 //functions for calculating topping cost
 
-
-let topings = new Topings();
-let newToping = new Toping("Cheese", 2.00, "No");
-topings.addToping(newToping);
-newToping = new Toping("Pepperoni", 2.00, "No");
-topings.addToping(newToping);
-newToping = new Toping("Artichoke",2.00, "No");
-topings.addToping(newToping);
-newToping = new Toping("Pinapple",2.00, "No");
-topings.addToping(newToping);
-
-function costToping(inputedTopingType){
+function costToping(inputedTopingType,topings){
   for (let i = 1; i < 4; i++) {
     if(topings.topings[i].topings === inputedTopingType){
       topings.topings[i].userSelectedToping = "Yes";
@@ -210,9 +189,9 @@ function costToping(inputedTopingType){
   return  pizzaCostpertoping = 0
 }
 
-let pizzaparlor = new pizzaParlor();
 
-function showPizza(pizzaId) {
+
+function showPizza(pizzaId,pizzaparlor) {
   const pizza = pizzaparlor.findPizza(pizzaId);
   $("#show-pizza").show();
   $(".fname").html(pizza.fullname);
@@ -244,9 +223,9 @@ function displayAddressDetails(pizza) {
 
 //functions for attaching event listeners
 
-function attachPizzaListeners() {
+function attachPizzaListeners(pizzaparlor) {
   $("ul#Pizzas").on("click", "li", function() {
-    showPizza(this.id);
+    showPizza(this.id,pizzaparlor);
   });
   displayPizzaDetails(pizzaparlor)
 }
@@ -261,18 +240,18 @@ function attachDeliveryTypeListeners() {
   });
 }
 
-let newAddresses = new Addresses();
 
-function attachAddressListeners() {
+
+function attachAddressListeners(newAddress) {
   $("ul#addresses").on("click", "li", function() {
-    showAddress(this.id);
+    showAddress(this.id,newAddress);
   });
-  displayAddressDetails(newAddresses)
+  displayAddressDetails(newAddress)
 }
 
 
-function showAddress(addressId) {
-  const address = newAddresses.findAddress(addressId);
+function showAddress(addressId,newAddress) {
+  const address = newAddress.findAddress(addressId);
   $("#show-address").show();
   $(".street").html(address.street);
   $(".region").html(address.region);
@@ -280,8 +259,35 @@ function showAddress(addressId) {
 }
 
 $(document).ready(function() {
-  attachPizzaListeners();
-  attachAddressListeners()
+
+  let newPizzaparlor = new pizzaParlor();
+  let newAddresses = new Addresses();
+  attachAddressListeners(newAddresses);
+  attachPizzaListeners(newPizzaparlor);
+//----------------sizes-----------------
+
+  let sizes = new Sizes();
+  let newSize = new Size("Small Size", 10.00,"No");
+  sizes.addSize(newSize);
+  newSize = new Size("Medium Size", 12.00,"No");
+  sizes.addSize(newSize);
+  newSize = new Size("Large Size", 14.00,"No");
+  sizes.addSize(newSize);
+
+// ------------Toppings----------------
+
+  let topings = new Topings();
+  let newToping = new Toping("Cheese", 2.00, "No");
+  topings.addToping(newToping);
+  newToping = new Toping("Pepperoni", 2.00, "No");
+  topings.addToping(newToping);
+  newToping = new Toping("Artichoke",2.00, "No");
+  topings.addToping(newToping);
+  newToping = new Toping("Pinapple",2.00, "No");
+  topings.addToping(newToping);
+
+  
+  
   $("#addressdisp-form").hide();
   attachDeliveryTypeListeners();
 
@@ -296,17 +302,18 @@ $(document).ready(function() {
   const inputedSizes = $("#size").val();
   $("input[type=checkbox]:checked").each( function() {
     const inputedToping = $(this).val();
-    pizzaCostperTopping += costToping(inputedToping)
+    pizzaCostperTopping += costToping(inputedToping,topings)
   });
 
-  let pizzaCostperSize = costSize(inputedSizes);
+  let pizzaCostperSize = costSize(inputedSizes,sizes);
   TotalCost = pizzaCostperSize + pizzaCostperTopping;
   let FullAddress = new Address(inputtedAddressStreet, inputtedAddressRegion, inputtedAddressPostalCode);
   newAddresses.addAddress(FullAddress);
   let newPizza = new Pizza(inputtedFullName,inputedPnoneno,TotalCost,newAddresses);
-  pizzaparlor.addPizza(newPizza);
-  displayPizzaDetails(pizzaparlor);
+  newPizzaparlor.addPizza(newPizza);
+  displayPizzaDetails(newPizzaparlor);
   displaySizeDetails(sizes);
   displayTopingDetails(topings);
+  displayAddressDetails(newAddresses);
   }); 
 });    
